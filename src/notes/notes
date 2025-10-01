@@ -83,3 +83,163 @@ Bruk dokumentasjonen til Gutendex APILinks to an external site. for å forstå h
 tanstack query
 axios
 
+
+
+
+//
+
+components/
+
+BookCard.jsx → displays a single book.
+
+BookList.jsx → displays a list of books, probably mapping over BookCard.
+
+Header.jsx → search bar, navigation.
+
+Components should mostly receive props and not fetch data themselves.
+
+hooks/
+
+useGutendex.js → your custom hook, likely wrapping TanStack Query calls to fetch books.
+
+This is where you handle stateful queries, e.g., current page, search term, filters.
+
+lib/
+
+axios.js → Axios instance with base URL (https://gutendex.com or /books).
+
+queryClient.js → TanStack Query client setup.
+
+routes.jsx → defines your React Router routes.
+
+This is your toolbox for global config/utilities.
+
+pages/
+
+Each page represents a route: Home.jsx, Category.jsx, Favorites.jsx, BookDetails.jsx.
+
+Pages use hooks to fetch data and pass it down to components.
+
+This is also the right place for pagination state (page number) and search input handling.
+
+services/
+
+gutendex.js → API functions using Axios (getBooks, etc.).
+
+This keeps all API calls centralized. Your hooks call these services.
+
+services/
+
+gutendex.js → API functions using Axios (getBooks, etc.).
+
+This keeps all API calls centralized. Your hooks call these services.
+
+Home.jsx (page)
+ └─ uses useGutendex(search, page) → hook
+      └─ calls gutendex.js → getBooks(search, page)
+           └─ uses axios instance (lib/axios.js) to hit Gutendex API
+ └─ passes data → BookList.jsx
+      └─ maps each book → BookCard.jsx
+
+
+Step 1: Setup Routing
+
+Use routes.jsx and react-router-dom to define your routes:
+
+/ → Home.jsx
+
+/category/:categoryName → Category.jsx
+
+/book/:bookId → BookDetails.jsx
+
+/favorites → Favorites.jsx
+
+Ensure Header.jsx is always visible on all pages.
+
+Why first: Your navigation and routing structure will be the backbone for all other components.
+
+
+Step 2: Setup API Service
+
+In services/gutendex.js:
+
+Create functions to fetch data from Gutendex:
+
+fetchBooks(query, page) → for search
+
+fetchBooksByCategory(category, page)
+
+fetchBookDetails(bookId)
+
+Consider using axios.js for API calls and queryClient.js if you plan to use TanStack Query for caching.
+
+Why second: All pages rely on data from the API. Having this ready lets you fetch data easily anywhere.
+
+Step 3: Create Custom Hook
+
+hooks/useGutendex.js:
+
+Wrap your API calls in reusable hooks (useSearchBooks, useCategoryBooks, useBookDetails)
+
+Include loading/error states
+
+Integrate with QueryClient if using TanStack Query
+
+Why third: Makes fetching data in components clean and consistent.
+
+Step 4: Build Components
+
+BookCard.jsx → for individual book display (title, cover, author, etc.)
+
+BookList.jsx → list of BookCard components, handles pagination
+
+Header.jsx → with search bar and category menu
+
+Tip: Keep components dumb (presentational) as much as possible; let hooks handle logic.
+
+Step 5: Implement Pages
+
+Home.jsx → display popular books or latest search
+
+Category.jsx → use useCategoryBooks hook to fetch and display books
+
+BookDetails.jsx → use useBookDetails to show detailed info and “Add to Favorites” button
+
+Favorites.jsx → pull favorite books from localStorage and display
+
+Step 6: Favorites Functionality
+
+Create helper functions to add/remove books from localStorage.
+
+Ensure Favorites page updates correctly after changes.
+
+Step 7: Search Functionality
+
+Add search in Header.jsx
+
+On search submit, navigate to / or a dedicated results view
+
+Use useSearchBooks hook to fetch results
+
+Step 8: Styling & Responsiveness
+
+Style each component and page
+
+Ensure responsive layouts for mobile/desktop
+
+Step 9: Testing & Error Handling
+
+Show loading spinners while fetching data
+
+Display user-friendly error messages
+
+Test pagination, category selection, search, favorites
+
+Optional Step 10: Extra Enhancements
+
+Infinite scrolling for book lists
+
+Dark mode
+
+Filtering by language or download count
+
