@@ -4,11 +4,13 @@ import BookList from "../components/BookList";
 function Favorites() {
   const [favorites, setFavorites] = useState([]);
 
+  // Load favorites from localStorage on mount
   useEffect(() => {
     const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
     setFavorites(storedFavorites);
   }, []);
 
+  // Remove a book by ID
   const removeFavorite = (bookId) => {
     const updated = favorites.filter((b) => b.id !== bookId);
     setFavorites(updated);
@@ -21,7 +23,10 @@ function Favorites() {
       {favorites.length === 0 ? (
         <p>No favorite books yet.</p>
       ) : (
-        <BookList books={favorites} />
+        <BookList
+          books={favorites}
+          removeFavorite={removeFavorite} // pass it to BookList
+        />
       )}
     </div>
   );

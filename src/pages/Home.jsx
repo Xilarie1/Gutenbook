@@ -1,15 +1,17 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import BookList from "../components/BookList";
-import { useSearchBooks } from "../hooks/useGutendex";
+import { useSearchBooks, useDefaultBooks } from "../hooks/useGutendex";
 
 function Home() {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const searchQuery = params.get("search") || "";
 
-  // Fetch books based on the search query
-  const { data, isLoading, isError } = useSearchBooks(searchQuery);
+  // Fetch either search results or default books
+  const { data, isLoading, isError } = searchQuery
+    ? useSearchBooks(searchQuery)
+    : useDefaultBooks();
 
   return (
     <div style={{ padding: "1rem" }}>

@@ -3,35 +3,42 @@ import {
   fetchBooks,
   fetchBooksByCategory,
   fetchBookDetails,
+  fetchDefaultBooks,
 } from "../services/gutendex.js";
+
+export const useDefaultBooks = (page = 1) => {
+  return useQuery({
+    queryKey: ["defaultBooks", page],
+    queryFn: () => fetchDefaultBooks(page),
+    keepPreviousData: true,
+  });
+};
 
 // Hook for searching books
 export const useSearchBooks = (query, page = 1) => {
-  return useQuery(
-    ["searchBooks", query, page], // query key
-    () => fetchBooks(query, page), // query function
-    {
-      enabled: !!query, // don't fetch if query is empty
-      keepPreviousData: true, // keeps old data while fetching new
-    }
-  );
+  return useQuery({
+    queryKey: ["searchBooks", query, page],
+    queryFn: () => fetchBooks(query, page),
+    enabled: !!query,
+    keepPreviousData: true,
+  });
 };
 
 // Hook for fetching books by category
 export const useCategoryBooks = (category, page = 1) => {
-  return useQuery(
-    ["categoryBooks", category, page],
-    () => fetchBooksByCategory(category, page),
-    {
-      enabled: !!category,
-      keepPreviousData: true,
-    }
-  );
+  return useQuery({
+    queryKey: ["categoryBooks", category, page],
+    queryFn: () => fetchBooksByCategory(category, page),
+    enabled: !!category,
+    keepPreviousData: true,
+  });
 };
 
 // Hook for fetching a single book's details
 export const useBookDetails = (bookId) => {
-  return useQuery(["bookDetails", bookId], () => fetchBookDetails(bookId), {
+  return useQuery({
+    queryKey: ["bookDetails", bookId],
+    queryFn: () => fetchBookDetails(bookId),
     enabled: !!bookId,
   });
 };

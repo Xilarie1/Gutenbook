@@ -1,6 +1,6 @@
 import BookCard from "./BookCard";
 
-function BookList({ books, isLoading, isError }) {
+function BookList({ books, isLoading, isError, removeFavorite }) {
   if (isLoading) return <p>Loading books...</p>;
   if (isError) return <p>Error fetching books.</p>;
   if (!books || books.length === 0) return <p>No books found.</p>;
@@ -14,7 +14,11 @@ function BookList({ books, isLoading, isError }) {
       }}
     >
       {books.map((book) => (
-        <BookCard key={book.id} book={book} />
+        <BookCard
+          key={book.id}
+          book={book}
+          removeFavorite={removeFavorite} // pass it down
+        />
       ))}
     </div>
   );

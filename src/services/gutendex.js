@@ -8,21 +8,21 @@ const get = (url, params = {}) => {
 };
 
 export const fetchBooks = (query, page = 1) => {
-  return get("/books", { search: query, page });
+  return get("", { search: query, page });
 };
 
 export const fetchBooksByCategory = (category, page = 1) => {
-  return get("/books", { topic: category, page });
+  return get("", { topic: category, page });
 };
 
 export const fetchBookDetails = (bookId) => {
-  return get(`/books/${bookId}`);
+  return get(`${bookId}`);
 };
 
 export const fetchDefaultBooks = (page = 1) => {
-  return get("/books", { page });
+  return get("", { page });
 };
 
 export const fetchBooksByLanguage = (language, page = 1) => {
-  return get("/books", { languages: language, page });
+  return get("", { languages: language, page });
 };
