@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 function BookCard({ book, removeFavorite }) {
-  const { id, title, authors, formats } = book;
+  const { id, title, authors, formats, summaries } = book;
 
   const cover = formats["image/jpeg"] || "";
 
@@ -23,9 +23,18 @@ function BookCard({ book, removeFavorite }) {
       )}
       <h3>{title}</h3>
       {authors?.length > 0 && <p>By {authors.map((a) => a.name).join(", ")}</p>}
+
+      {/* Show first summary if it exists */}
+      {summaries?.length > 0 && (
+        <p style={{ fontStyle: "italic", marginTop: "0.5rem" }}>
+          {summaries[0].slice(0, 100)}
+          {/* limit to 100 chars */}
+          {summaries[0].length > 100 ? "..." : ""}
+        </p>
+      )}
+
       <Link to={`/book/${id}`}>View Details</Link>
 
-      {/* Remove button only shows if removeFavorite prop is passed */}
       {removeFavorite && (
         <button
           onClick={() => removeFavorite(id)}
