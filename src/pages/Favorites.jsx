@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import BookList from "../components/BookList";
+import Pagination from "../components/Pagination";
 
 function Favorites() {
   const [favorites, setFavorites] = useState([]);
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 8; // number of favorites per page
 
   // Load favorites from localStorage on mount
   useEffect(() => {
@@ -17,16 +20,32 @@ function Favorites() {
     localStorage.setItem("favorites", JSON.stringify(updated));
   };
 
+  // Pagination logic
+  const totalPages = Math.ceil(favorites.length / itemsPerPage);
+  const paginatedFavorites = favorites.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage
+  );
+
   return (
-    <div style={{ padding: "1rem" }}>
-      <h2>Favorites</h2>
+    <div className="favorites-page">
+      <h2 className="favorites-title">Favorites</h2>
+
       {favorites.length === 0 ? (
-        <p>No favorite books yet.</p>
+        <p className="no-favorites">No favorite books yet.</p>
       ) : (
-        <BookList
-          books={favorites}
-          removeFavorite={removeFavorite} // pass it to BookList
-        />
+        <>
+          <BookList
+            books={paginatedFavorites}
+            removeFavorite={removeFavorite}
+          />
+
+          <Pagination
+            page={page}
+            totalPages={totalPages}
+            onPageChange={(newPage) => setPage(newPage)}
+          />
+        </>
       )}
     </div>
   );

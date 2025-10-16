@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "./BookCard.css";
 
 function BookCard({ book, removeFavorite }) {
   const { id, title, authors, formats, summaries } = book;
@@ -6,29 +7,14 @@ function BookCard({ book, removeFavorite }) {
   const cover = formats["image/jpeg"] || "";
 
   return (
-    <div
-      style={{
-        border: "1px solid #ddd",
-        padding: "1rem",
-        borderRadius: "8px",
-        position: "relative",
-      }}
-    >
-      {cover && (
-        <img
-          src={cover}
-          alt={title}
-          style={{ width: "100%", height: "200px", objectFit: "cover" }}
-        />
-      )}
+    <div className="bookcard-container">
+      {cover && <img src={cover} alt={title} className="bookcard-cover" />}
       <h3>{title}</h3>
       {authors?.length > 0 && <p>By {authors.map((a) => a.name).join(", ")}</p>}
 
-      {/* Show first summary if it exists */}
       {summaries?.length > 0 && (
-        <p style={{ fontStyle: "italic", marginTop: "0.5rem" }}>
+        <p className="bookcard-summary">
           {summaries[0].slice(0, 100)}
-          {/* limit to 100 chars */}
           {summaries[0].length > 100 ? "..." : ""}
         </p>
       )}
@@ -37,18 +23,8 @@ function BookCard({ book, removeFavorite }) {
 
       {removeFavorite && (
         <button
+          className="bookcard-remove-btn"
           onClick={() => removeFavorite(id)}
-          style={{
-            position: "absolute",
-            top: "10px",
-            right: "10px",
-            backgroundColor: "#f44336",
-            color: "#fff",
-            border: "none",
-            padding: "0.5rem 1rem",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
         >
           Remove
         </button>

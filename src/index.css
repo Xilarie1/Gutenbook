@@ -1,4 +1,14 @@
 :root {
+  --color-green: #00ff99;
+  --color-black: #060f11;
+  --color-offblack: #1c2225;
+  --color-offwhite: #d7d8d9;
+  --color-grey: #989d9e;
+
+  --font-main: "Work Sans", sans-serif;
+  --font-secondary: "IBM Plex Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -54,7 +64,7 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
   :root {
     color: #213547;
     background-color: #ffffff;

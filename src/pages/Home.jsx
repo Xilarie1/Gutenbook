@@ -1,53 +1,28 @@
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import BookList from "../components/BookList";
-import { useSearchBooks, useDefaultBooks } from "../hooks/useGutendex";
+import Pagination from "../components/Pagination";
+import { useDefaultBooks, useSearchBooks } from "../hooks/useGutendex";
 
 function Home() {
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  const searchQuery = params.get("search") || "";
-
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("search") || "";
   const [page, setPage] = useState(1);
 
-  // Fetch books depending on whether there's a search query
-  const { data, isLoading, isError } = searchQuery
-    ? useSearchBooks(searchQuery, page)
+  const { data, isLoading, isError } = query
+    ? useSearchBooks(query, page)
     : useDefaultBooks(page);
 
-  const totalPages = data?.count ? Math.ceil(data.count / 32) : 1; // Gutendex default 32 per page
+  // Reset page to 1 whenever query changes
+  useEffect(() => setPage(1), [query]);
+
+  const totalPages = data?.count ? Math.ceil(data.count / 32) : 1;
 
   return (
-    <div style={{ padding: "1rem" }}>
-      <h2>Home Page</h2>
-      {searchQuery ? (
-        <p>Showing results for "{searchQuery}"</p>
-      ) : (
-        <p>Welcome! Here are some popular or latest books.</p>
-      )}
-
+    <div className="home-page">
+      {query && <p>Search results for "{query}"</p>}
       <BookList books={data?.results} isLoading={isLoading} isError={isError} />
-
-      {/* Pagination controls */}
-      <div style={{ marginTop: "1rem", display: "flex", gap: "1rem" }}>
-        <button
-          onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-          disabled={page === 1}
-        >
-          Previous
-        </button>
-
-        <span>
-          Page {page} of {totalPages}
-        </span>
-
-        <button
-          onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-          disabled={page === totalPages}
-        >
-          Next
-        </button>
-      </div>
+      <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import BookCard from "./BookCard";
+import "./BookList.css";
 
 function BookList({ books, isLoading, isError, removeFavorite }) {
   if (isLoading) return <p>Loading books...</p>;
@@ -6,19 +7,9 @@ function BookList({ books, isLoading, isError, removeFavorite }) {
   if (!books || books.length === 0) return <p>No books found.</p>;
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
-        gap: "1rem",
-      }}
-    >
+    <div className="booklist-container">
       {books.map((book) => (
-        <BookCard
-          key={book.id}
-          book={book}
-          removeFavorite={removeFavorite} // pass it down
-        />
+        <BookCard key={book.id} book={book} removeFavorite={removeFavorite} />
       ))}
     </div>
   );

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./SearchBar.css";
 
 function SearchBar() {
   const [query, setQuery] = useState("");
@@ -12,15 +13,17 @@ function SearchBar() {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginTop: "0.5rem" }}>
+    <form className="search-form" onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Search books..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        style={{ padding: "0.3rem", marginRight: "0.3rem" }}
+        className="search-input"
       />
-      <button type="submit">Search</button>
+      <button type="submit" className="search-button">
+        Search
+      </button>
     </form>
   );
 }

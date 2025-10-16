@@ -29,41 +29,46 @@ function BookDetails() {
     }
   };
 
-  if (isLoading) return <p>Loading book details...</p>;
-  if (isError) return <p>Error fetching book details.</p>;
-  if (!data) return <p>Book not found.</p>;
+  if (isLoading) return <p className="loading">Loading book details...</p>;
+  if (isError) return <p className="error">Error fetching book details.</p>;
+  if (!data) return <p className="not-found">Book not found.</p>;
 
   const { title, authors, formats, subjects, download_count, summaries } = data;
-  const cover = formats["image/jpeg"] || "";
+  const cover = formats?.["image/jpeg"] || "";
 
   return (
-    <div style={{ padding: "1rem" }}>
-      <h2>{title}</h2>
-      {authors?.length > 0 && <p>By {authors.map((a) => a.name).join(", ")}</p>}
-      {cover && <img src={cover} alt={title} style={{ width: "300px" }} />}
-      {subjects?.length > 0 && <p>Subjects: {subjects.join(", ")}</p>}
+    <div className="book-details">
+      <h2 className="book-title">{title}</h2>
 
-      {summaries?.length > 0 ? (
-        summaries.map((s, i) => (
-          <p key={i} style={{ fontStyle: "italic" }}>
-            {s}
-          </p>
-        ))
-      ) : (
-        <p>No summary available.</p>
+      {authors?.length > 0 && (
+        <p className="book-authors">
+          By {authors.map((a) => a.name).join(", ")}
+        </p>
       )}
 
-      <p>Download count: {download_count}</p>
+      {cover && <img src={cover} alt={title} className="book-cover" />}
+
+      {subjects?.length > 0 && (
+        <p className="book-subjects">Subjects: {subjects.join(", ")}</p>
+      )}
+
+      <div className="book-summaries">
+        {summaries?.length > 0 ? (
+          summaries.map((s, i) => (
+            <p key={i} className="book-summary">
+              {s}
+            </p>
+          ))
+        ) : (
+          <p className="book-summary">No summary available.</p>
+        )}
+      </div>
+
+      <p className="book-downloads">Download count: {download_count}</p>
+
       <button
         onClick={() => toggleFavorite(data)}
-        style={{
-          backgroundColor: isFavorite ? "#4caf50" : "#2196f3",
-          color: "#fff",
-          border: "none",
-          padding: "0.5rem 1rem",
-          borderRadius: "4px",
-          cursor: "pointer",
-        }}
+        className={isFavorite ? "favorite-btn added" : "favorite-btn"}
       >
         {isFavorite ? "Added to Favorites" : "Add to Favorites"}
       </button>
