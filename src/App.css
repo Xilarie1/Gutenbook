@@ -1,26 +1,45 @@
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  background-color: var(--color-offblack);
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-black);
   color: var(--color-offwhite);
-  cursor: pointer;
-  transition: all 0.25s ease;
 }
 
-button:hover {
-  border-color: var(--color-green);
-  background-color: var(--color-green);
-  color: var(--color-black);
+/* Header always at top, main expands to fill rest */
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-secondary);
+/* When there are no results or while loading */
+.no-results,
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 50vh;
+  color: var(--color-grey);
+  font-size: 1.1rem;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: var(--color-offblack);
+  color: var(--color-grey);
+  font-size: 0.9rem;
 }
