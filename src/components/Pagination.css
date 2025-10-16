@@ -4,8 +4,10 @@
   align-items: center;
   gap: 1rem;
   margin: 2rem 0;
+  flex-wrap: wrap;
 }
 
+/* Pagination buttons */
 .pagination-button {
   padding: 0.5rem 1rem;
   background-color: var(--color-green);
@@ -26,13 +28,39 @@
   background-color: #00cc7a;
 }
 
+/* Page info + input */
 .pagination-info {
   font-family: var(--font-main);
   color: var(--color-offwhite);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
+
+.pagination-input {
+  width: 3rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  border: 1px solid var(--color-grey);
+  text-align: center;
+  background-color: var(--color-offblack);
+  color: var(--color-offwhite);
+}
+
+.pagination-input:focus {
+  outline: none;
+  border-color: var(--color-green);
+}
+
+/* Mobile adjustments */
 @media (max-width: 500px) {
   .pagination-container {
     flex-direction: column;
     gap: 0.5rem;
+  }
+
+  .pagination-info {
+    justify-content: center;
+    gap: 0.25rem;
   }
 }
