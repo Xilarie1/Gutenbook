@@ -1,0 +1,10 @@
+.home-page {
+  padding: 1rem;
+}
+.home-page,
+.category-page {
+  width: 100%;
+  padding: 1rem; /* optional for inner spacing */
+  margin: 0 auto;
+  box-sizing: border-box;
+}

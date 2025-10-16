@@ -1,0 +1,10 @@
+.category-page {
+  padding: 1rem;
+}
+
+.category-title {
+  font-family: var(--font-secondary);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--color-offwhite);
+}

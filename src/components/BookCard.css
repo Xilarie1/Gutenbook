@@ -1,29 +1,101 @@
 .bookcard-container {
-  border: 1px solid #ddd;
-  padding: 1rem;
+  background-color: var(--color-offblack);
   border-radius: 8px;
-  position: relative;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* key: push footer to bottom */
+  height: 100%; /* makes all cards equal height in the grid */
+  text-align: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
+.bookcard-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+}
+
+/* Book cover */
 .bookcard-cover {
   width: 100%;
-  height: 200px;
+  height: 220px;
   object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Content section: title, authors, summary */
+.bookcard-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1; /* expands to push footer down */
+}
+
+.bookcard-container h3 {
+  font-family: var(--font-secondary);
+  margin: 0.3rem 0;
+  color: var(--color-offwhite);
+}
+
+.bookcard-container p {
+  margin: 0;
+  font-family: var(--font-main);
+  color: var(--color-offwhite);
 }
 
 .bookcard-summary {
-  font-style: italic;
-  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--color-grey);
 }
 
+/* Footer section: links & remove button */
+.bookcard-footer {
+  margin-top: auto; /* ensures footer stays at bottom */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* View Details link */
+.bookcard-footer a {
+  text-decoration: none;
+  color: var(--color-green);
+  font-weight: 500;
+}
+
+.bookcard-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Remove button */
 .bookcard-remove-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: #f44336;
-  color: #fff;
+  padding: 0.4rem 0.8rem;
+  background-color: var(--color-green);
+  color: var(--color-black);
   border: none;
-  padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.bookcard-remove-btn:hover {
+  background-color: #00cc7a;
+}
+
+/* Mobile adjustments */
+@media (max-width: 400px) {
+  .bookcard-container {
+    padding: 0.75rem;
+  }
+
+  .bookcard-cover {
+    height: 180px;
+  }
+
+  .bookcard-summary {
+    font-size: 0.8rem;
+  }
 }
