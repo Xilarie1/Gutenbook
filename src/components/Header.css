@@ -1,3 +1,4 @@
+/* Header container */
 .header {
   display: flex;
   flex-direction: column;
@@ -5,32 +6,113 @@
   padding: 1rem;
   background-color: var(--color-black);
   gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
+/* Header title */
 .header h1 {
   font-family: var(--font-secondary);
   font-size: 2rem;
   margin: 0;
+  color: var(--color-offwhite);
 }
 
-.main-nav,
-.category-nav {
+/* Top nav: main nav + category dropdown */
+.header-top {
   display: flex;
-  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
   flex-wrap: wrap;
 }
 
-.main-nav a,
-.category-nav a {
+/* Main nav links */
+.main-nav {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.main-nav a {
   text-decoration: none;
   color: var(--color-offwhite);
   font-weight: 500;
   transition: color 0.2s;
 }
 
-.main-nav a:hover,
-.category-nav a:hover {
+.main-nav a:hover {
   color: var(--color-green);
+}
+
+/* Category dropdown container */
+.category-dropdown {
+  position: relative;
+}
+
+.category-toggle {
+  background-color: var(--color-offblack);
+  color: var(--color-offwhite);
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.category-toggle:hover {
+  background-color: var(--color-green);
+  color: var(--color-black);
+}
+
+/* Dropdown menu */
+.category-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--color-offblack);
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  list-style: none;
+  padding: 0.5rem 0;
+  min-width: 180px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  z-index: 10;
+}
+
+.category-menu li {
+  padding: 0.5rem 1rem;
+}
+
+.category-menu li a {
+  text-decoration: none;
+  color: var(--color-offwhite);
+  display: block;
+}
+
+.category-menu li a:hover {
+  color: var(--color-green);
+}
+
+/* Mobile / smaller screens adjustments */
+@media (max-width: 767px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .header-top {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .main-nav {
+    justify-content: center;
+  }
 }
 
 /* Desktop layout: horizontal navs */
@@ -42,16 +124,7 @@
     flex-wrap: wrap;
   }
 
-  .main-nav,
-  .category-nav {
+  .main-nav {
     gap: 1rem;
   }
-}
-
-/* Nav links wrap on smaller screens */
-.main-nav,
-.category-nav {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
 }
