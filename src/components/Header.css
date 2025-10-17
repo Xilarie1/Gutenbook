@@ -105,7 +105,7 @@
   margin-top: 0.5rem;
   list-style: none;
   padding: 0.5rem 0;
-  min-width: 180px;
+  width: 100%; /* 👈 Match the button’s width */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
   z-index: 10;
 }
